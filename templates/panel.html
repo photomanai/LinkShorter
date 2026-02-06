@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Link Shortener Panel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background-color: #0f172a; color: #e2e8f0; }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-4">
+
+    <div class="w-full max-w-md bg-slate-800 p-8 rounded-2xl shadow-2xl border border-slate-700">
+        <h1 class="text-3xl font-bold text-center mb-2 text-blue-400">Shorten Your Link</h1>
+        <p class="text-center text-slate-400 mb-8 text-sm">Secure, fast, and timed links.</p>
+
+        <form method="POST" class="space-y-4">
+            <div>
+                <label class="block text-sm font-medium mb-1 text-slate-300">Destination URL</label>
+                <input type="url" name="url" required placeholder="https://example.com" 
+                    class="w-full p-3 rounded-lg bg-slate-900 border border-slate-600 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition">
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium mb-1 text-slate-300">Expiration Time</label>
+                <select name="expire" class="w-full p-3 rounded-lg bg-slate-900 border border-slate-600 focus:border-blue-500 outline-none">
+                    <option value="1h">1 Hour</option>
+                    <option value="1d">1 Day</option>
+                    <option value="1w">1 Week</option>
+                    <option value="1m">1 Month</option>
+                    <option value="never">Never (Permanent)</option>
+                </select>
+            </div>
+
+            <button type="submit" class="w-full py-3 px-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold rounded-lg shadow-lg transform transition hover:scale-[1.02]">
+                Generate Link ⚡
+            </button>
+        </form>
+
+        {% if new_link %}
+        <div class="mt-8 p-4 bg-slate-900 rounded-lg border border-green-500/30">
+            <p class="text-xs text-green-400 uppercase font-bold tracking-wider mb-1">Link Created!</p>
+            <div class="flex items-center justify-between bg-slate-800 p-2 rounded border border-slate-700">
+                <code class="text-blue-300 text-sm break-all truncate mr-2">{{ new_link }}</code>
+                <button onclick="navigator.clipboard.writeText('{{ new_link }}')" class="text-xs bg-slate-700 hover:bg-slate-600 px-2 py-1 rounded text-white transition">
+                    Copy
+                </button>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+</body>
+</html>
